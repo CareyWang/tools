@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 sudo apt-get update
 
 # 安装语言包
@@ -14,7 +14,7 @@ sudo apt-get install -y software-properties-common
 sudo apt-get install -y php7.2 php7.2-fpm php7.2-mysql php7.2-curl php7.2-soap php7.2-xml php7.2-zip php7.2-gd php7.2-mbstring php7.2-json php7.2-xdebug -y
 
 # 安装 Mysql
-apt-get install mysql-server-5.7 mysql-client-5.7
+sudo apt-get install mysql-server-5.7 mysql-client-5.7
 
 # 安装 Nginx
 sudo service apache2 stop
@@ -38,17 +38,26 @@ php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
 
 # 安装 python3
-sudo apt-get install software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt-get update
-sudo apt-get install python3.6
+# sudo apt-get install software-properties-common
+# sudo add-apt-repository ppa:deadsnakes/ppa
+# sudo apt-get update
+# sudo apt-get install python3.6
 
-command -v pip3
+# command -v pip3
 
 # 安装 nodejs
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
+# 安装 yarn
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
 
 # 宝塔
-wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && sudo bash install.sh
+# ubuntu
+# wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && sudo bash install.sh
+# centos
+# yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
+# debian
+# wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
 
