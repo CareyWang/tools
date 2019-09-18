@@ -32,7 +32,7 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
-composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+# composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # 安装 python3
 # sudo apt-get install software-properties-common
@@ -43,9 +43,9 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 # command -v pip3
 
 # 安装 nodejs
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
-npm config set registry https://registry.npm.taobao.org
+# npm config set registry https://registry.npm.taobao.org
 
 # 安装 yarn
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
