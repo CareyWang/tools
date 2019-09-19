@@ -16,6 +16,8 @@ sudo apt-get install -y php7.3 php7.3-fpm php7.3-mysql php7.3-curl php7.3-soap p
 
 # 安装 MySQL5.7
 sudo apt-get install -y mysql-server-5.7 mysql-client-5.7
+# ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+# ALTER USER 'root' IDENTIFIED BY '123456' PASSWORD EXPIRE NEVER;
 
 # 安装 nginx
 sudo service apache2 stop
@@ -32,7 +34,7 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
-# composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # 安装 python3
 # sudo apt-get install software-properties-common
@@ -45,7 +47,7 @@ mv composer.phar /usr/local/bin/composer
 # 安装 nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
-# npm config set registry https://registry.npm.taobao.org
+npm config set registry https://registry.npm.taobao.org
 
 # 安装 yarn
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
