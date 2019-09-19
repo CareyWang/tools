@@ -8,19 +8,19 @@ sudo locale-gen en_US.UTF-8
 # 安装常用软件
 sudo apt-get install -y vim git zip unzip mutt
 
-# 安装 PHP7.2
+# 安装 php7.3
 sudo apt-get install -y software-properties-common
-# sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
-# sudo apt-get update
-sudo apt-get install -y php7.2 php7.2-fpm php7.2-mysql php7.2-curl php7.2-soap php7.2-xml php7.2-zip php7.2-gd php7.2-mbstring php7.2-json php7.2-xdebug -y
+sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install -y php7.3 php7.3-fpm php7.3-mysql php7.3-curl php7.3-soap php7.3-xml php7.3-zip php7.3-gd php7.3-mbstring php7.3-json php7.3-xdebug -y
 
 # 安装 MySQL5.7
 sudo apt-get install -y mysql-server-5.7 mysql-client-5.7
 
 # 安装 nginx
 sudo service apache2 stop
-sudo apt-get --purge remove apache2
-sudo apt-get autoremove
+sudo apt-get --purge remove apache2 -y
+sudo apt-get autoremove -y
 sudo apt-get install -y nginx
 
 # 安装 jdk tomcat
