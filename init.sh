@@ -15,7 +15,7 @@ sudo apt-get update
 sudo apt-get install -y php7.3 php7.3-fpm php7.3-mysql php7.3-curl php7.3-soap php7.3-xml php7.3-zip php7.3-gd php7.3-mbstring php7.3-json php7.3-xdebug -y
 
 # 安装 MySQL5.7
-sudo apt-get install -y mysql-server-5.7 mysql-client-5.7
+sudo apt-get install -y mysql-client-5.7 mysql-server-5.7 
 # ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
 # ALTER USER 'root' IDENTIFIED BY '123456' PASSWORD EXPIRE NEVER;
 
@@ -87,3 +87,8 @@ docker-compose --version
 sudo add-apt-repository ppa:longsleep/golang-backports
 sudo apt-get update
 sudo apt-get install golang-go -y
+
+# 安装Redis
+sudo add-apt-repository ppa:chris-lea/redis-server -y 
+sudo apt-get update 
+sudo apt-get install redis-server -y 
