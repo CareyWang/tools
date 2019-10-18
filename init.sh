@@ -26,8 +26,8 @@ sudo apt-get autoremove -y
 sudo apt-get install -y nginx
 
 # 安装 jdk tomcat
-sudo apt-get install openjdk-8-jdk -y
-sudo apt-get install tomcat8 -y
+# sudo apt-get install openjdk-8-jdk -y
+# sudo apt-get install tomcat8 -y
 
 # 安装 Composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
