@@ -103,3 +103,13 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 # sudo certbot --nginx
 # sudo certbot certonly --nginx
+
+# 添加 swap
+sudo fallocate -l 1G /swapfile
+# sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
+sudo swapon --show
+free -m
