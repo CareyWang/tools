@@ -87,8 +87,19 @@ docker-compose --version
 sudo add-apt-repository ppa:longsleep/golang-backports
 sudo apt-get update
 sudo apt-get install golang-go -y
+# 配置 go modules 代理
+# go env -w GO111MODULE="on"
+# go env -w GOPROXY="https://goproxy.cn,direct"
 
 # 安装Redis
 sudo add-apt-repository ppa:chris-lea/redis-server -y 
 sudo apt-get update 
 sudo apt-get install redis-server -y 
+
+# 安装certbot
+sudo apt-get update
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+# sudo certbot --nginx
+# sudo certbot certonly --nginx
