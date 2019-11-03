@@ -113,3 +113,6 @@ sudo swapon /swapfile
 echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 sudo swapon --show
 free -m
+
+# 安装v2-ui
+# bash <(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
