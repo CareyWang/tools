@@ -101,6 +101,7 @@ sudo apt-get update
 sudo add-apt-repository universe
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
+sudo apt-get install certbot python-certbot-nginx
 # sudo certbot --nginx
 # sudo certbot certonly --nginx
 
@@ -116,3 +117,13 @@ free -m
 
 # 安装v2-ui
 # bash <(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
+
+# 安装 MinIO
+docker run -d -p 9000:9000 --name minio1 --restart always \
+  -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" \
+  -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" \
+  -v /mnt/minio/data:/data \
+  -v /mnt/minio/config:/root/.minio \
+  minio/minio server /data
+# curl -O https://raw.githubusercontent.com/minio/minio/master/docs/orchestration/docker-compose/docker-compose.yaml
+# docker-compose up
