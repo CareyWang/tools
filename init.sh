@@ -12,7 +12,7 @@ sudo apt-get install -y vim git zip unzip mutt
 sudo apt-get install -y software-properties-common
 sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 sudo apt-get update
-sudo apt-get install -y php7.3 php7.3-fpm php7.3-mysql php7.3-curl php7.3-soap php7.3-xml php7.3-zip php7.3-gd php7.3-mbstring php7.3-json php7.3-xdebug -y
+sudo apt-get install -y php7.3 php7.3-fpm php7.3-mysql php7.3-curl php7.3-soap php7.3-xml php7.3-zip php7.3-gd php7.3-mbstring php7.3-json -y
 
 # 安装 MySQL5.7
 sudo apt-get install -y mysql-client-5.7 mysql-server-5.7 
@@ -40,7 +40,7 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 # sudo apt-get install software-properties-common
 # sudo add-apt-repository ppa:deadsnakes/ppa
 # sudo apt-get update
-# sudo apt-get install python3.6
+# sudo apt-get install python3.6 -y
 
 # command -v pip3
 
@@ -79,7 +79,7 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # 安装 docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
@@ -101,7 +101,7 @@ sudo apt-get update
 sudo add-apt-repository universe
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
-sudo apt-get install certbot python-certbot-nginx
+sudo apt-get install certbot python-certbot-nginx -y
 # sudo certbot --nginx
 # sudo certbot certonly --nginx
 
@@ -117,6 +117,26 @@ free -m
 
 # 安装v2-ui
 # bash <(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
+mkdir -p /etc/shadowsocks-r
+echo '{
+    "server":"0.0.0.0",
+    "server_ipv6":"::",
+    "server_port":10000,
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "password":"passw0rd",
+    "timeout":120,
+    "method":"chacha20",
+    "protocol":"auth_aes128_md5",
+    "protocol_param":"2054:P5sbRB",
+    "obfs":"tls1.2_ticket_auth",
+    "obfs_param":"itunes.apple.com/cn/app/2054",
+    "redirect":"",
+    "dns_ipv6":false,
+    "fast_open":true,
+    "workers":1
+}' > /etc/shadowsocks-r/config.json
+docker run -d -p 10000:10000 -p 10000:10000/udp --name ssr --restart=always -v /etc/shadowsocks-r:/etc/shadowsocks-r teddysun/shadowsocks-r
 
 # 安装 MinIO
 docker run -d -p 9000:9000 --name minio1 --restart always \
@@ -127,3 +147,12 @@ docker run -d -p 9000:9000 --name minio1 --restart always \
   minio/minio server /data
 # curl -O https://raw.githubusercontent.com/minio/minio/master/docs/orchestration/docker-compose/docker-compose.yaml
 # docker-compose up
+
+# 安装mtproxy
+sudo apt-get install -y psmisc
+wget -O mtg --no-check-certificate https://raw.githubusercontent.com/whunt1/onekeymakemtg/master/builds/mtg-linux-amd64
+sudo mv mtg /usr/local/bin/mtg
+sudo chmod +x /usr/local/bin/mtg
+# 生成TLS伪装密钥
+# mtg generate-secret -c itunes.apple.com tls
+nohup mtg run -b 0.0.0.0:443 --cloak-port=443 ee055a9b283c6ef2fbea89a374df31e7966974756e65732e6170706c652e636f6d >> /var/log/mtg.log 2>&1 &
