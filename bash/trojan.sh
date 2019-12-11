@@ -32,19 +32,7 @@ sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sudo sysctl -p
 
 # nginx配置
-server {
-    listen 127.0.0.1:80; #放在Trojan后面即可做伪装也可以是真正的网站
-    server_name trojan.v2cdn.gq;
-    location / {
-        root /usr/share/nginx/html/; #默认的根目录
-        index index.html; #默认的html文件
-    }
-    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always; #HSTS标头
-}
-
-server {
-    listen 80;
-    listen [::]:80;
-    server_name trojan.v2cdn.gq;
-    return 301 https://trojan.v2cdn.gq; #301 https重定向
-}
+sudo sed -i '%s/example.com/trojan.v2cdn.gq/g' ../nginx-conf/trojan.conf
+sudo cp ../nginx-conf/trojan.conf /etc/nginx/site-available/trojan
+sudo ln -s /etc/nginx/site-available/trojan /etc/nginx/site-enable/trojan
+sudo nginx -s reload
