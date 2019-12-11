@@ -4,6 +4,7 @@ sudo apt-get update
 sudo apt-get install curl socat -y && curl https://get.acme.sh | sh
 
 # 获取ssl证书
+sudo /etc/init.d/nginx stop
 sudo mkdir /etc/trojan/
 sudo ~/.acme.sh/acme.sh --issue -d trojan.v2cdn.gq --standalone -k ec-256
 sudo ~/.acme.sh/acme.sh --installcert -d trojan.v2cdn.gq --fullchainpath /etc/trojan/trojan.crt --keypath /etc/trojan/trojan.key --ecc
@@ -32,7 +33,7 @@ sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sudo sysctl -p
 
 # nginx配置
-sudo sed -i '%s/example.com/trojan.v2cdn.gq/g' ../nginx-conf/trojan.conf
-sudo cp ../nginx-conf/trojan.conf /etc/nginx/site-available/trojan
-sudo ln -s /etc/nginx/site-available/trojan /etc/nginx/site-enable/trojan
-sudo nginx -s reload
+sudo sed -i 's/example.com/trojan.v2cdn.gq/g' ../nginx-conf/trojan.conf
+sudo cp ../nginx-conf/trojan.conf /etc/nginx/sites-available/trojan
+sudo ln -s /etc/nginx/sites-available/trojan /etc/nginx/sites-enabled/trojan
+sudo /etc/init.d/nginx restart
