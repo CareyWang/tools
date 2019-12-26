@@ -1,7 +1,8 @@
+// https://installen.gd.workers.dev
 // https://raw.githubusercontent.com/donwa/goindex/master/index.js
 
 var authConfig = {
-    "siteName": "GoIndex", // 网站名称
+    "siteName": "wcc.best", // 网站名称
     "root_pass": "index",  // 根目录密码，优先于.password
     "version" : "1.0.6", // 程序版本
     "theme" : "material", // material  classic 
