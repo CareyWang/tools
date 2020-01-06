@@ -38,3 +38,18 @@ sudo chmod +x /usr/local/bin/mtg
 # 生成TLS伪装密钥
 # mtg generate-secret -c itunes.apple.com tls
 nohup mtg run -b 0.0.0.0:443 --cloak-port=443 ee055a9b283c6ef2fbea89a374df31e7966974756e65732e6170706c652e636f6d >> /var/log/mtg.log 2>&1 &
+
+# rclone 
+curl https://rclone.org/install.sh | sudo bash
+rclone config
+
+rclone mount pr: /mnt/gd/pr --allow-other --allow-non-empty --vfs-cache-mode writes &
+rclone mount ab: /mnt/gd/ab --allow-other --allow-non-empty --vfs-cache-mode writes &
+rclone mount ucla: /mnt/gd/ucla --allow-other --allow-non-empty --vfs-cache-mode writes &
+# fusermount -qzu /mnt/gd/pr
+
+rclone mkdir ucla:folder1
+rclone copy -v ab:folder2 ucla:folder1 --drive-server-side-across-configs
+
+# 网易云音乐解锁
+docker run -d -p 8080:8080 --name unlocknetease nondanee/unblockneteasemusic
