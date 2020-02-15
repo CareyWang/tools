@@ -37,7 +37,15 @@ sudo mv mtg /usr/local/bin/mtg
 sudo chmod +x /usr/local/bin/mtg
 # 生成TLS伪装密钥
 # mtg generate-secret -c itunes.apple.com tls
-nohup mtg run -b 0.0.0.0:443 --cloak-port=443 ee055a9b283c6ef2fbea89a374df31e7966974756e65732e6170706c652e636f6d >> /var/log/mtg.log 2>&1 &
+sudo nohup mtg run -b 0.0.0.0:443 --cloak-port=443 ee055a9b283c6ef2fbea89a374df31e7966974756e65732e6170706c652e636f6d >> /var/log/mtg.log 2>&1 &
+# docker
+docker run -d \
+ --name=mtp \
+ --restart=always \
+ -p 543:443 \
+ -e "MTG_BIND=0.0.0.0:443" \
+ -e "MTG_CLOAK_PORT=443" \
+ nineseconds/mtg  run ee65989d8136d7cb56ca3b7e965e5a56596974756e65732e6170706c652e636f6d
 
 # rclone 
 curl https://rclone.org/install.sh | sudo bash
