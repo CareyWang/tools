@@ -61,3 +61,7 @@ rclone copy -v ab:folder2 ucla:folder1 --drive-server-side-across-configs
 
 # 网易云音乐解锁
 docker run -d -p 8080:8080 --name unlocknetease nondanee/unblockneteasemusic
+
+# 一键 DD Ubuntu1804
+# https://moeclub.org/2018/04/03/603/
+bash <(wget --no-check-certificate -qO- 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh') -u 18.04 -v 64 -a
