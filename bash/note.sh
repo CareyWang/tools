@@ -64,4 +64,17 @@ docker run -d -p 8080:8080 --name unlocknetease nondanee/unblockneteasemusic
 
 # 一键 DD Ubuntu1804
 # https://moeclub.org/2018/04/03/603/
+sudo apt-get update
+sudo apt-get install -y xz-utils openssl gawk file -y
 bash <(wget --no-check-certificate -qO- 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh') -u 18.04 -v 64 -a
+
+
+sudo apt-get update
+sudo apt-get install -y xz-utils openssl gawk file
+wget --no-check-certificate https://shell.p1e.cn/reinstall/Network-Reinstall-System-Modify.sh && chmod a+x Network-Reinstall-System-Modify.sh
+bash Network-Reinstall-System-Modify.sh -Ubuntu_18.04
+# 默认root密码: cxthhhhh.com
+
+# brook 流量转发
+wget https://github.com/txthinking/brook/releases/download/v20200201/brook -O /usr/local/bin/brook && chmod +x /usr/local/bin/brook
+brook relay -l :543 -r 3.112.34.251:543
