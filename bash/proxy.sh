@@ -41,3 +41,5 @@ echo '{
     "plugin_opts":"obfs=tls"
 }' > /etc/shadowsocks-libev/config.json
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
+
+docker run -d --restart always --name clash -p 7890:7890 -p 7891:7891 -v /etc/clash/clash.yaml:/root/.config/clash/config.yaml dreamacro/clash
