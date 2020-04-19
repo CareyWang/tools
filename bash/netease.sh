@@ -14,3 +14,5 @@ cd UnblockNeteaseMusic
 pm2 start app.js --name netease --max-memory-restart 150M
 pm2 save 
 pm2 startup
+
+wget https://raw.githubusercontent.com/CareyWang/tools/master/bash/netease.sh -O netease.sh && chmod +x netease.sh && bash netease.sh

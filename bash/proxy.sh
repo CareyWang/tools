@@ -15,7 +15,7 @@ echo '{
     "local_port":1080,
     "password":"passw0rd",
     "timeout":120,
-    "method":"chacha20",
+    "method":"aes-256-gcm",
     "protocol":"auth_aes128_md5",
     "protocol_param":"2054:P5sbRB",
     "obfs":"tls1.2_ticket_auth",
@@ -42,4 +42,5 @@ echo '{
 }' > /etc/shadowsocks-libev/config.json
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
 
-docker run -d --restart always --name clash -p 7890:7890 -p 7891:7891 -v /etc/clash/clash.yaml:/root/.config/clash/config.yaml dreamacro/clash
+# Clash with docker
+docker run -d --name clash --restart always -p 7890:7890 -p 7891:7891 -v /var/www/http/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
