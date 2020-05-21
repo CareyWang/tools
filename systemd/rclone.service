@@ -1,0 +1,25 @@
+cat > /etc/systemd/system/rclone.ghs.service <<EOF
+[Unit]
+Description=Rclone
+AssertPathIsDirectory=LocalFolder
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount ghs: /mnt/gd/ghs \
+ --umask 0000 \
+ --default-permissions \
+ --allow-non-empty \
+ --allow-other \
+ --buffer-size 32M \
+ --vfs-read-chunk-size 64M \
+ --vfs-read-chunk-size-limit 1G
+ExecStop=/bin/fusermount -u /mnt/gd/ghs
+Restart=on-abort
+User=root
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl daemon-reload

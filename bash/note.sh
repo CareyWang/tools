@@ -105,3 +105,9 @@ sudo apt-get install iptables-persistent netfilter-persistent -y
 # global ssh
 ucloud gssh location
 ucloud gssh create --location $Location --target-ip $EIP --port $Port
+
+# docker image update
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
