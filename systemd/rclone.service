@@ -1,4 +1,4 @@
-cat > /etc/systemd/system/rclone.ghs.service <<EOF
+cat > /etc/systemd/system/rclone.plus.service <<EOF
 [Unit]
 Description=Rclone
 AssertPathIsDirectory=LocalFolder
@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/rclone mount ghs: /mnt/gd/ghs \
+ExecStart=/usr/bin/rclone mount plus-agwa: /mnt/gd/plus \
  --umask 0000 \
  --default-permissions \
  --allow-non-empty \
@@ -14,7 +14,7 @@ ExecStart=/usr/bin/rclone mount ghs: /mnt/gd/ghs \
  --buffer-size 32M \
  --vfs-read-chunk-size 64M \
  --vfs-read-chunk-size-limit 1G
-ExecStop=/bin/fusermount -u /mnt/gd/ghs
+ExecStop=/bin/fusermount -u /mnt/gd/plus
 Restart=on-abort
 User=root
 

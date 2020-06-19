@@ -44,3 +44,52 @@ docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v 
 
 # Clash with docker
 docker run -d --name clash --restart always -p 7890:7890 -p 7891:7891 -v /var/www/http/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
+
+# trojan-go
+sudo apt-get install unzip -y
+mkdir /etc/trojan-go && cd /etc/trojan-go 
+wget https://github.com/p4gefau1t/trojan-go/releases/download/v0.7.4/trojan-go-linux-amd64.zip && unzip trojan-go-linux-amd64.zip
+certbot certonly --preferred-challenges dns --manual  -d *.example.com --server https://acme-v02.api.letsencrypt.org/directory
+cp /etc/letsencrypt/live/example.com/fullchain.pem ./server.crt
+cp /etc/letsencrypt/live/example.com/privkey.pem ./server.key
+tee > config.json <<EOF
+{
+    "run_type": "server",
+    "local_addr": "0.0.0.0",
+    "local_port": 443,
+    "remote_addr": "bing.com",
+    "remote_port": 80,
+    "password": [
+        "ChinaNo.1"
+    ],
+    "dns": [
+        "dot://1.1.1.1",
+        "dot://dns.google",
+        "1.1.1.1",
+        "8.8.8.8"
+    ],
+    "ssl": {
+        "cert": "server.crt",
+        "key": "server.key",
+        "sni": "tr.example.com"
+    }}
+EOF
+tee > /etc/systemd/system/trojan.service <<EOF
+[Unit]
+Description=trojan
+AssertPathIsDirectory=LocalFolder
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/trojan-go/
+ExecStart=/etc/trojan-go/trojan-go -config /etc/trojan-go/config.json
+Restart=on-abort
+User=root
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl daemon-reload
+systemctl start trojan
+systemctl enable trojan

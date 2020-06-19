@@ -107,7 +107,11 @@ ucloud gssh location
 ucloud gssh create --location $Location --target-ip $EIP --port $Port
 
 # docker image update
-docker run -d \
+docker run -d --restart always \
   --name watchtower \
   -v /var/run/docker.sock:/var/run/docker.sock \
   containrrr/watchtower
+
+# 泛域名证书
+certbot certonly --preferred-challenges dns --manual  -d *.example.com --server https://acme-v02.api.letsencrypt.org/directory
+
