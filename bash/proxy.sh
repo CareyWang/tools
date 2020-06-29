@@ -93,3 +93,7 @@ EOF
 systemctl daemon-reload
 systemctl start trojan
 systemctl enable trojan
+
+# gost隧道中转
+服务端: gost -L relay+tls://:65535/127.0.0.1:8080
+客户端: gost -L tcp://:65535 -F relay+tls://{$remote_addr}:65535

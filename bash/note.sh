@@ -115,3 +115,11 @@ docker run -d --restart always \
 # 泛域名证书
 certbot certonly --preferred-challenges dns --manual  -d *.example.com --server https://acme-v02.api.letsencrypt.org/directory
 
+# 探针
+# https://github.com/CokeMine/ServerStatus-Hotaru
+# /usr/local/ServerStatus
+wget https://raw.githubusercontent.com/CokeMine/ServerStatus-Hotaru/master/status.sh
+#服务端
+bash status.sh s 
+#客户端
+bash status.sh c
