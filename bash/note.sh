@@ -119,6 +119,7 @@ certbot certonly --preferred-challenges dns --manual  -d *.example.com --server 
 # https://github.com/CokeMine/ServerStatus-Hotaru
 # /usr/local/ServerStatus
 wget https://raw.githubusercontent.com/CokeMine/ServerStatus-Hotaru/master/status.sh
+wget https://cdn.jsdelivr.net/gh/CokeMine/ServerStatus-Hotaru@master/status.sh
 #服务端
 bash status.sh s 
 #客户端

@@ -1,5 +1,7 @@
 # 教程: https://sunpma.com/137.html
 # Windows 10 数字权利激活工具: https://github.com/TGSAN/CMWTAT_Digital_Edition
+# RHTBY-VWY6D-QJRJ9-JGQ3X-Q2289
+# H8PDJ-H4NKW-3GKH7-YHKJ7-4C2JR
 
 sudo apt-get install -y xz-utils openssl gawk file
 

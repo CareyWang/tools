@@ -28,18 +28,16 @@ echo '{
 docker run -d -p 10000:10000 -p 10000:10000/udp --name ssr --restart=always -v /etc/shadowsocks-r:/etc/shadowsocks-r teddysun/shadowsocks-r
 
 mkdir -p /etc/shadowsocks-libev
-echo '{
-    "server":"0.0.0.0",
-    "server_port":9000,
-    "method":"chacha20-ietf",
-    "timeout":300,
-    "password":"Passw0rd.",
-    "fast_open":false,
-    "nameserver":"8.8.8.8",
+cat > /etc/shadowsocks-libev/config.json <<EOF
+{
+    "server": "0.0.0.0",
+    "server_port": 9000,
+    "password": "o2XpeePkIsqP",
+    "timeout": 60,
     "mode":"tcp_and_udp",
-    "plugin":"obfs-server",
-    "plugin_opts":"obfs=tls"
-}' > /etc/shadowsocks-libev/config.json
+    "method": "rc4-md5"
+}
+EOF
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
 
 # Clash with docker
@@ -95,5 +93,5 @@ systemctl start trojan
 systemctl enable trojan
 
 # gost隧道中转
-服务端: gost -L relay+tls://:65535/127.0.0.1:8080
-客户端: gost -L tcp://:65535 -F relay+tls://{$remote_addr}:65535
+服务端: gost -L relay+mwss://:65535/127.0.0.1:8080
+客户端: gost -L tcp://:65535 -F relay+mwss://{$remote_addr}:65535
