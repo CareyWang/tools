@@ -2,6 +2,14 @@
 
 sudo apt-get update
 
+# 设置时区
+date
+sudo tzselect
+sudo cp /etc/localtime /etc/localtime.bak
+sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+sudo apt-get install ntpdate -y
+sudo ntpdate time.windows.com
+
 # 安装语言包
 sudo apt-get install -y language-pack-en-base
 sudo locale-gen en_US.UTF-8
@@ -48,7 +56,10 @@ sudo add-apt-repository \
 # sudo mkdir -p /etc/docker
 # sudo tee /etc/docker/daemon.json <<-'EOF'
 # {
-#   "registry-mirrors": ["https://hub-mirror.c.163.com"]
+#   "registry-mirrors": [
+#       "https://hub-mirror.c.163.com",
+#       "https://mirror.baidubce.com"
+#   ]
 # }
 # EOF
 # sudo systemctl daemon-reload

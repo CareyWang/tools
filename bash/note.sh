@@ -51,7 +51,7 @@ docker run -d \
 
 # gost mtp
 mkdir -p /opt/gost
-wget https://github.com/ginuerzh/gost/releases/download/v2.11.0/gost-linux-amd64-2.11.0.gz -O gost.gz && gzip gost.gz -d && chmod +x ./gost && mv gost /usr/local/bin/gost
+wget https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz -O gost.gz && gzip gost.gz -d && chmod +x ./gost && mv gost /usr/local/bin/gost
 echo "95.161.64.0/20 91.108.8.0/22 91.108.56.0/22 91.108.4.0/22 91.108.12.0/22 149.154.172.0/22 149.154.164.0/22 149.154.160.0/22 2001:67c:4e8::/48 2001:b28:f23d::/48" > /opt/gost/telegram.list
 gost -V 
 nohup gost -L=socks5://china:no.1@:8999?bypass=/opt/gost/telegram.list > /var/log/gost.mtp.log 2>&1 &
@@ -124,3 +124,5 @@ wget https://cdn.jsdelivr.net/gh/CokeMine/ServerStatus-Hotaru@master/status.sh
 bash status.sh s 
 #客户端
 bash status.sh c
+
+docker run -d -p 30000:80 ilemonrain/html5-speedtest:latest
