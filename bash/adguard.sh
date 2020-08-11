@@ -41,8 +41,7 @@ systemctl start AdGuard
 # 配置反代
 sudo apt-get install vim nginx -y
 
-tee > /etc/nginx/sites-available/doh <<EOF
-server {
+echo 'server {
     listen 80;
     # listen 443 ssl http2;
     server_name dns.example.com;
@@ -77,7 +76,7 @@ server {
         proxy_pass https://dns.example.com:2345/dns-query; # 这里的 Path 必须为 dns-query
     }
 }
-EOF
+' > /etc/nginx/sites-available/doh
 
 ln -s /etc/nginx/sites-available/doh /etc/nginx/sites-enabled/doh
 nginx -t 
