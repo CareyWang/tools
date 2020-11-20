@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get install git vim wget -y
+sudo apt update
+sudo apt install git vim wget -y
 
 mkdir -p /var/www/http && cd /var/www/http
 

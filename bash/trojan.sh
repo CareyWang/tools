@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt-get update 
-sudo apt-get install curl socat -y && curl https://get.acme.sh | sh
+sudo apt update 
+sudo apt install curl socat -y && curl https://get.acme.sh | sh
 
 # 获取ssl证书
 sudo /etc/init.d/nginx stop
@@ -11,7 +11,7 @@ sudo ~/.acme.sh/acme.sh --installcert -d trojan.v2cdn.gq --fullchainpath /etc/tr
 chmod +r /etc/trojan/trojan.key
 
 # 安装trojan
-sudo apt-get install xz-utils -y
+sudo apt install xz-utils -y
 sudo bash -c "$(wget -O- https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)"
 sed  -i 's/path/etc/g' /usr/local/etc/trojan/config.json
 sed  -i 's/to/trojan/g' /usr/local/etc/trojan/config.json

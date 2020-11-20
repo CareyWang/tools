@@ -1,6 +1,6 @@
 #/bin/bash
 
-sudo apt-get update 
+sudo apt update 
 
 mkdir -p /opt/nginx && cd /opt/nginx 
 
@@ -11,17 +11,20 @@ git clone https://github.com/leev/ngx_http_geoip2_module.git ngx_http_geoip2_mod
 
 # 更新 geoip2 database
 sudo add-apt-repository ppa:maxmind/ppa -y
-sudo apt-get update 
-sudo apt-get install libmaxminddb0 libmaxminddb-dev mmdb-bin geoipupdate libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev -y
+sudo apt update 
+sudo apt install libmaxminddb0 libmaxminddb-dev mmdb-bin geoipupdate libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev -y
 sed -i 's/YOUR_ACCOUNT_ID_HERE/197938/g' /etc/GeoIP.conf
 sed -i 's/YOUR_LICENSE_KEY_HERE/1mZlEmCP8obxGdvC/g' /etc/GeoIP.conf
 geoipupdate 
 
 # 编译安装 nginx
 cd nginx-1.19.1
-sudo apt-get install build-essential libtool libpcre3 libpcre3-dev zlib1g-dev openssl -y 
+sudo apt install build-essential libtool libpcre3 libpcre3-dev zlib1g-dev openssl -y 
 ./configure --add-dynamic-module=/opt/nginx/ngx_http_geoip2_module $(nginx -V) \
     --with-compat \
+    --with-http_ssl_module \
+    --with-http_dav_module \
+    --with-http_v2_module \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --conf-path=/etc/nginx/nginx.conf \
@@ -35,6 +38,9 @@ make install
 # 加载 geoip 模块 
 # /etc/nginx/nginx.conf events 前添加如下：
 # load_module modules/ngx_http_geoip2_module.so;
+# 或
+# echo 'load_module modules/ngx_http_geoip2_module.so;' > /etc/nginx/modules-available/mod-ngx_http_geoip2.conf
+# ln -s /etc/nginx/modules-available/mod-ngx_http_geoip2.conf /etc/nginx/modules-enabled/50-mod-ngx_http_geoip2.conf
 
 # 修改 /etc/nginx/nginx.conf in http section
 

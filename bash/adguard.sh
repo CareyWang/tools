@@ -39,7 +39,7 @@ systemctl start AdGuard
 # /etc/letsencrypt/live/doh.example.com/privkey.pem
 
 # 配置反代
-sudo apt-get install vim nginx -y
+sudo apt install vim nginx -y
 
 echo 'server {
     listen 80;
@@ -83,9 +83,9 @@ nginx -t
 nginx -s reload 
 
 # 安装certbot
-sudo apt-get update
+sudo apt update
 sudo add-apt-repository universe -y
 sudo add-apt-repository ppa:certbot/certbot -y
-sudo apt-get update
-sudo apt-get install certbot python-certbot-nginx -y
+sudo apt update
+sudo apt install certbot python-certbot-nginx -y
 certbot --nginx 

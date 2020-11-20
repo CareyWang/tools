@@ -1,31 +1,33 @@
 #!/bin/bash
 
-sudo apt-get update
+sudo apt update
 
 # 安装v2-ui
 bash <(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
 
 # 安装shadowsocks-r
 mkdir -p /etc/shadowsocks-r
-echo '{
+cat > /etc/shadowsocks-r/config.json <<EOF
+{
     "server":"0.0.0.0",
     "server_ipv6":"::",
-    "server_port":10000,
+    "server_port":9002,
     "local_address":"127.0.0.1",
     "local_port":1080,
-    "password":"passw0rd",
+    "password":"o2XpeePkIsqP",
     "timeout":120,
-    "method":"aes-256-gcm",
-    "protocol":"auth_aes128_md5",
-    "protocol_param":"2054:P5sbRB",
-    "obfs":"tls1.2_ticket_auth",
-    "obfs_param":"itunes.apple.com/cn/app/2054",
+    "method":"chacha20-ietf",
+    "protocol":"origin",
+    "protocol_param":"",
+    "obfs":"plain",
+    "obfs_param":"",
     "redirect":"",
     "dns_ipv6":false,
     "fast_open":true,
     "workers":1
-}' > /etc/shadowsocks-r/config.json
-docker run -d -p 10000:10000 -p 10000:10000/udp --name ssr --restart=always -v /etc/shadowsocks-r:/etc/shadowsocks-r teddysun/shadowsocks-r
+}
+EOF
+docker run -d --network host --name ssr --restart=always -v /etc/shadowsocks-r:/etc/shadowsocks-r teddysun/shadowsocks-r
 
 mkdir -p /etc/shadowsocks-libev
 cat > /etc/shadowsocks-libev/config.json <<EOF
@@ -35,7 +37,7 @@ cat > /etc/shadowsocks-libev/config.json <<EOF
     "password": "o2XpeePkIsqP",
     "timeout": 60,
     "mode":"tcp_and_udp",
-    "method": "rc4-md5"
+    "method": "chacha20-ietf-poly1305"
 }
 EOF
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
@@ -44,12 +46,12 @@ docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v 
 docker run -d --name clash --restart always -p 7890:7890 -p 7891:7891 -v /var/www/http/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
 
 # trojan-go
-sudo apt-get install unzip -y
-mkdir /etc/trojan-go && cd /etc/trojan-go 
-wget https://github.com/p4gefau1t/trojan-go/releases/download/v0.7.4/trojan-go-linux-amd64.zip && unzip trojan-go-linux-amd64.zip
-certbot certonly --preferred-challenges dns --manual  -d *.example.com --server https://acme-v02.api.letsencrypt.org/directory
-cp /etc/letsencrypt/live/example.com/fullchain.pem ./server.crt
-cp /etc/letsencrypt/live/example.com/privkey.pem ./server.key
+sudo apt install unzip -y
+mkdir /etc/trojan-go && cd /etc/trojan-go
+wget https://github.com/p4gefau1t/trojan-go/releases/download/v0.8.2/trojan-go-linux-amd64.zip && unzip trojan-go-linux-amd64.zip
+certbot certonly --preferred-challenges dns --manual -d *.ttgg.me --server https://acme-v02.api.letsencrypt.org/directory
+cp /etc/letsencrypt/live/ttgg.me/fullchain.pem ./server.crt
+cp /etc/letsencrypt/live/ttgg.me/privkey.pem ./server.key
 tee > config.json <<EOF
 {
     "run_type": "server",
@@ -63,14 +65,17 @@ tee > config.json <<EOF
     "dns": [
         "dot://1.1.1.1",
         "dot://dns.google",
-        "1.1.1.1",
-        "8.8.8.8"
+        "1.1.1.1"
     ],
     "ssl": {
         "cert": "server.crt",
         "key": "server.key",
-        "sni": "tr.example.com"
-    }}
+        "sni": "rn.ttgg.me"
+    },
+    "mux" :{
+        "enabled": true
+    }
+}
 EOF
 tee > /etc/systemd/system/trojan.service <<EOF
 [Unit]
@@ -95,3 +100,7 @@ systemctl enable trojan
 # gost隧道中转
 服务端: gost -L relay+mwss://:65535/127.0.0.1:8080
 客户端: gost -L tcp://:65535 -F relay+mwss://{$remote_addr}:65535
+
+wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
+chmod +x shadowsocks-all.sh
+./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log

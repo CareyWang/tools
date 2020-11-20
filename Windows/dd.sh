@@ -3,7 +3,7 @@
 # RHTBY-VWY6D-QJRJ9-JGQ3X-Q2289
 # H8PDJ-H4NKW-3GKH7-YHKJ7-4C2JR
 
-sudo apt-get install -y xz-utils openssl gawk file
+sudo apt install -y xz-utils openssl gawk file
 
 #DD Windows Server 2003 32位 精简版 [账户Administrator密码cxthhhhh.com]
 wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh -dd 'https://api.moeclub.org/GoogleDrive/1j9ow8dsIA7DucsGpDI-kzJwiNW9kMceT'
@@ -41,7 +41,7 @@ wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/Li
 wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh -dd 'https://api.moeclub.org/GoogleDrive/1gRIT702MrVzLr8Bmk8OF-_Ckp02_tOxE'
 
 # GCP谷歌云-台湾
-wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh --ip-addr X.X.X.X --ip-mask 255.255.255.0 --ip-gate 10.140.0.1 -dd 'https://api.moeclub.org/GoogleDrive/1C9Y0Iu1pGX4-blb_3G49jOqv13Zeka6-'
+wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh --ip-addr X.X.X.X --ip-mask 255.255.255.0 --ip-gate 10.140.0.1 -dd 'https://api.moeclub.org/GoogleDrive/1gRIT702MrVzLr8Bmk8OF-_Ckp02_tOxE'
 
 # GCP谷歌云 香港
 wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh --ip-addr X.X.X.X --ip-mask 255.255.255.0 --ip-gate 10.170.0.1 -dd 'https://api.moeclub.org/GoogleDrive/1C9Y0Iu1pGX4-blb_3G49jOqv13Zeka6-'
