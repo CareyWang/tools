@@ -43,7 +43,7 @@ EOF
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
 
 # Clash with docker
-docker run -d --name clash --restart always -p 7890:7890 -p 7891:7891 -v /var/www/http/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
+docker run -d --name clash --restart always -p 7890:7890 -v /etc/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
 
 # trojan-go
 sudo apt install unzip -y
@@ -99,7 +99,10 @@ systemctl enable trojan
 
 # gost隧道中转
 服务端: gost -L relay+mwss://:65535/127.0.0.1:8080
+pm2 start gost --name gost-relay --max-memory-restart 100M -- -L relay+mwss://:19001/127.0.0.1:9001
+
 客户端: gost -L tcp://:65535 -F relay+mwss://{$remote_addr}:65535
+pm2 start gost --name gost-relay-racknerd --max-memory-restart 100M -- -L tcp://:19001 -F relay+mwss://173.82.250.143:19001
 
 wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
 chmod +x shadowsocks-all.sh

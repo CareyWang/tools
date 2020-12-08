@@ -1,4 +1,5 @@
 #!/bin/bash
+# curl -fsSL https://git.io/JIRlS | bash
 
 sudo apt update
 

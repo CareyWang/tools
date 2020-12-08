@@ -65,7 +65,7 @@ wget https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64
 echo "95.161.64.0/20 91.108.8.0/22 91.108.56.0/22 91.108.4.0/22 91.108.12.0/22 149.154.172.0/22 149.154.164.0/22 149.154.160.0/22 2001:67c:4e8::/48 2001:b28:f23d::/48" > /opt/gost/telegram.list
 gost -V
 nohup gost -L=socks5://china:no.1@:8999?bypass=/opt/gost/telegram.list > /var/log/gost.mtp.log 2>&1 &
-pm2 start gost --name gost-mtp --max-memory-restart 100M -- -L=socks5://plusmedia:lyPp35JcGxVmronQ@:4396?bypass=/opt/gost/telegram.list
+pm2 start gost --name gost-mtp --max-memory-restart 100M -- -L=socks5://xianyucloud:MxxIsBest@:4396?bypass=/opt/gost/telegram.list
 
 # gost ss
 gost -L=ss://rc4-md5:ckn4bLSXHQ@:58080 -F=127.0.0.1:8080
@@ -110,7 +110,7 @@ bash Network-Reinstall-System-Modify.sh -Ubuntu_18.04
 
 # brook 流量转发
 wget https://github.com/txthinking/brook/releases/download/v20200909/brook_linux_amd64 -O /usr/local/bin/brook && chmod +x /usr/local/bin/brook
-brook relay -f :9002 -t jp-1.linode.xianyucloud.xyz:9001
+brook relay -f :9001 -t hk-1.node.xianyucloud.xyz:777
 pm2 start brook --name ss-linode-jp-1 -- relay -f :9002 -t jp-1.linode.xianyucloud.xyz:9001
 pm2 start brook --name t-linode-jp-1 -- relay -f :1443 -t jp-1.linode.xianyucloud.xyz:443
 

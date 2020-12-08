@@ -45,3 +45,15 @@ wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/Li
 
 # GCP谷歌云 香港
 wget --no-check-certificate -qO InstallNET.sh 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh' && bash InstallNET.sh --ip-addr X.X.X.X --ip-mask 255.255.255.0 --ip-gate 10.170.0.1 -dd 'https://api.moeclub.org/GoogleDrive/1C9Y0Iu1pGX4-blb_3G49jOqv13Zeka6-'
+
+# DD Linux
+# FROM: Debian/Ubuntu
+sudo apt install -y xz-utils openssl gawk file
+# FROM: RedHat/CentOS:
+sudo yum install -y xz openssl gawk file
+
+# Ubuntu1804
+bash <(wget --no-check-certificate -qO- 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh') -u 18.04 -v 64 -a -p IAlEFP_Rvy7wXgYUinSKzEAzUcx3k7krI
+
+# CentOS7
+bash <(wget --no-check-certificate -qO- 'https://moeclub.org/attachment/LinuxShell/InstallNET.sh') -c 7 -v 64 -a -p IAlEFP_Rvy7wXgYUinSKzEAzUcx3k7krI
