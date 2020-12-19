@@ -70,6 +70,36 @@ pm2 start gost --name gost-mtp --max-memory-restart 100M -- -L=socks5://xianyucl
 # gost ss
 gost -L=ss://rc4-md5:ckn4bLSXHQ@:58080 -F=127.0.0.1:8080
 
+# docker mtp 
+mkdir /etc/clash 
+cat > /etc/clash/config.yaml <<EOF
+mixed-port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: error
+authentication:
+ - "plusmedia:lyPp35JcGxVmronQ"
+
+rules:
+  - DOMAIN-SUFFIX,t.me,DIRECT
+  - DOMAIN-SUFFIX,tdesktop.com,DIRECT
+  - DOMAIN-SUFFIX,telegra.ph,DIRECT
+  - DOMAIN-SUFFIX,telesco.pe,DIRECT
+  - IP-CIDR,91.108.4.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.8.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.12.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.16.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.56.0/22,DIRECT,no-resolve
+  - IP-CIDR,149.154.160.0/20,DIRECT,no-resolve
+  - IP-CIDR6,2001:b28:f23d::/48,DIRECT,no-resolve
+  - IP-CIDR6,2001:b28:f23f::/48,DIRECT,no-resolve
+  - IP-CIDR6,2001:67c:4e8::/48,DIRECT,no-resolve
+  - MATCH,REJECT
+EOF
+
+docker run -d --name clash --restart always -p 4396:7891 -v /etc/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
+
 # rclone
 curl https://rclone.org/install.sh | sudo bash
 rclone config
@@ -145,3 +175,10 @@ bash status.sh s
 bash status.sh c
 
 docker run -d -p 30000:80 ilemonrain/html5-speedtest:latest
+
+# smartdns
+wget https://github.com/pymumu/smartdns/releases/download/Release33/smartdns.1.2020.09.08-2235.x86_64-debian-all.deb
+apt install resolvconf -y
+echo "nameserver 127.0.0.1" >>/etc/resolvconf/resolv.conf.d/head
+systemctl stop systemd-resolved
+/etc/init.d/resolvconf restart
