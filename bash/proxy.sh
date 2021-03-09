@@ -42,6 +42,44 @@ cat > /etc/shadowsocks-libev/config.json <<EOF
 EOF
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
 
+mkdir -p /etc/shadowsocks-rust
+cat > /etc/shadowsocks-rust/config.json <<EOF
+{
+    "server":"0.0.0.0",
+    "server_port":9000,
+    "password":"Wm_1tdY2xe",
+    "timeout":300,
+    "method":"aes-256-gcm",
+    "nameserver":"8.8.8.8",
+    "mode":"tcp_and_udp",
+    "plugin":"obfs-server",
+    "plugin_opts":"obfs=tls"
+}
+EOF
+docker run -d -p 9001:9000 -p 9001:9000/udp --name ss-rust --restart=always -v /etc/shadowsocks-rust:/etc/shadowsocks-rust teddysun/shadowsocks-rust
+
+mkdir -p /etc/xray
+cat > /etc/xray/config.json <<EOF
+{
+  "inbounds": [{
+    "port": 9000,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "6d6ab639-74f6-41ba-93cc-7f369b0ce901"
+        }
+      ]
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  }]
+}
+EOF
+docker run -d -p 9002:9000 --name xray --restart=always -v /etc/xray:/etc/xray teddysun/xray
+
 # Clash with docker
 docker run -d --name clash --restart always -p 7890:7890 -v /etc/clash/config.yaml:/root/.config/clash/config.yaml dreamacro/clash
 

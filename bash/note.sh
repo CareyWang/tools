@@ -59,6 +59,15 @@ docker run -d \
  -e "MTG_CLOAK_PORT=443" \
  nineseconds/mtg run eeca94746dddf4cc279bad313df1329baf7777772e6f66666963652e636f6d
 
+# PlusMedia itunes.apple.com
+docker run -d \
+ --name=mtp \
+ --restart=always \
+ -p 543:443 \
+ -e "MTG_BIND=0.0.0.0:443" \
+ -e "MTG_CLOAK_PORT=443" \
+ nineseconds/mtg run ee58f3fe48417280490b16d536415f5a856974756e65732e6170706c652e636f6d
+
 # gost mtp
 mkdir -p /opt/gost
 wget https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz -O gost.gz && gzip gost.gz -d && chmod +x ./gost && mv gost /usr/local/bin/gost
@@ -182,3 +191,6 @@ apt install resolvconf -y
 echo "nameserver 127.0.0.1" >>/etc/resolvconf/resolv.conf.d/head
 systemctl stop systemd-resolved
 /etc/init.d/resolvconf restart
+
+# ssh proxy
+ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:7890 %h %p" username@host
