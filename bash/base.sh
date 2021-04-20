@@ -32,18 +32,7 @@ sudo apt install certbot python-certbot-nginx -y
 # sudo certbot certonly --nginx
 
 # 安装 docker-ce
-sudo apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+curl -fsSL https://get.docker.com | bash 
 
 # 国内 docker 源
 # curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
@@ -51,10 +40,12 @@ sudo add-apt-repository \
 #     "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu \
 #     $(lsb_release -cs) \
 #     stable"
-#     
+# sudo apt update
+# sudo apt install -y docker-ce docker-ce-cli containerd.io
+  
 # 国内镜像加速器
 # sudo mkdir -p /etc/docker
-# sudo tee /etc/docker/daemon.json <<-'EOF'
+# sudo tee /etc/docker/daemon.json <<EOF
 # {
 #   "registry-mirrors": [
 #       "https://hub-mirror.c.163.com",
@@ -65,13 +56,10 @@ sudo add-apt-repository \
 # sudo systemctl daemon-reload
 # sudo systemctl restart docker
 
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io
-
 # 安装 docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 # 国内加速
-# curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+# curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 # sudo chmod +x /usr/local/bin/docker-compose

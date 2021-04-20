@@ -1,5 +1,6 @@
 #!/bin/bash
 # curl -fsSL https://git.io/JIRlS | bash
+# https://cdn.jsdelivr.net/gh/CareyWang/tools@master/bash/php74.sh
 
 sudo apt update
 

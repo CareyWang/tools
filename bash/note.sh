@@ -163,6 +163,7 @@ sudo apt install iptables-persistent netfilter-persistent -y
 # global ssh
 ucloud gssh location
 ucloud gssh create --location $Location --target-ip $EIP --port $Port
+ucloud gssh create --location HongKong --target-ip 34.80.226.174 --port 22
 
 # docker image update
 docker run -d --restart always \
@@ -194,3 +195,17 @@ systemctl stop systemd-resolved
 
 # ssh proxy
 ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:7890 %h %p" username@host
+
+# docker gost
+docker run -d --restart always --network host --name gost-server-emby ginuerzh/gost -L relay+mwss://:18096/127.0.0.1:8096
+
+docker run -d --restart always --network host --name gost-client-emby ginuerzh/gost -L relay+mwss://:18096/{host}:18096
+
+# apt proxy 
+sudo touch /etc/apt/apt.conf.d/proxy.conf
+sudo tee /etc/apt/apt.conf.d/proxy.conf <<EOF
+Acquire {
+    HTTP::proxy "http://127.0.0.1:7890";
+    HTTPS::proxy "http://127.0.0.1:7890";
+}
+EOF

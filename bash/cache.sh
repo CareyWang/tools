@@ -1,5 +1,6 @@
 #!/bin/bash
 # https://git.io/JIRld
+# https://cdn.jsdelivr.net/gh/CareyWang/tools@master/bash/cache.sh
 
 sudo apt update
 

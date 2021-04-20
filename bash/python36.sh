@@ -5,10 +5,10 @@ sudo apt update
 # 安装 python3.6
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
-sudo apt install python3.6 -y
+sudo apt install python3.9 -y
 
 # 安装 pip
-sudo apt install python3-distutils
+sudo apt install python3.9-distutils
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 

@@ -51,9 +51,7 @@ cat > /etc/shadowsocks-rust/config.json <<EOF
     "timeout":300,
     "method":"aes-256-gcm",
     "nameserver":"8.8.8.8",
-    "mode":"tcp_and_udp",
-    "plugin":"obfs-server",
-    "plugin_opts":"obfs=tls"
+    "mode":"tcp_and_udp"
 }
 EOF
 docker run -d -p 9001:9000 -p 9001:9000/udp --name ss-rust --restart=always -v /etc/shadowsocks-rust:/etc/shadowsocks-rust teddysun/shadowsocks-rust
