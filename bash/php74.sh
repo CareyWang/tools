@@ -16,6 +16,3 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
 # composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-
-composer global require hirak/prestissimo
-composer clearcache

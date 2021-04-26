@@ -23,13 +23,17 @@ sudo apt-get autoremove -y
 sudo apt install -y nginx
 
 # 安装certbot
-sudo apt update
-sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot -y
-sudo apt update
-sudo apt install certbot python-certbot-nginx -y
+# sudo apt update
+# sudo add-apt-repository universe
+# sudo add-apt-repository ppa:certbot/certbot -y
+# sudo apt update
+# sudo apt install certbot python-certbot-nginx -y
 # sudo certbot --nginx
 # sudo certbot certonly --nginx
+sudo apt install snapd -y
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 # 安装 docker-ce
 curl -fsSL https://get.docker.com | bash 
