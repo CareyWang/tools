@@ -2,15 +2,15 @@
 
 sudo apt update
 
-# 安装 python3.6
+# 安装 python3.10
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
-sudo apt install python3.9 -y
+sudo apt install python3.10 -y
 
 # 安装 pip
-sudo apt install python3.9-distutils
+sudo apt install python3.10-distutils
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py
+python3.10 get-pip.py
 
 # 安装 supervisor
 # easy_install supervisor

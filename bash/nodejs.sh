@@ -6,7 +6,7 @@
 sudo apt update
 
 # 安装 nodejs
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 # npm config set registry https://registry.npm.taobao.org
 
