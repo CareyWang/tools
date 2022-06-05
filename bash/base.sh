@@ -61,9 +61,9 @@ curl -fsSL https://get.docker.com | bash
 # systemctl restart docker
 
 # 安装 docker-compose
-curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.6.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 # 国内加速
-# curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+# curl -L https://get.daocloud.io/docker/compose/releases/download/2.6.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 # chmod +x /usr/local/bin/docker-compose
